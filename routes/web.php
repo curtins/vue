@@ -18,9 +18,9 @@ Route::get('/', function () {
 use App\Header;
 use App\Detail;
 
-Horizon::auth(function ($request) { 
-    return true; 
-});
+//Horizon::auth(function ($request) { 
+//    return true; 
+//});
 
 
 
