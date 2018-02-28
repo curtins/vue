@@ -11,18 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 use App\Header;
 use App\Detail;
 
 //Horizon::auth(function ($request) { 
 //    return true; 
 //});
-
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -55,6 +49,8 @@ Route::get('/report', function () {
 
     $now=time();
     //$difference = $now - $detail->created_at;
+
+    dd('report');
 
     return view('reports')->with('detail', $detail, 'now', $now);
 
