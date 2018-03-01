@@ -1,244 +1,243 @@
 <?php
 
-namespace App\Http\Controllers;
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
-use Illuminate\Http\Request;
-use App\Superfeedr;
-use App\Grouptype;
-use App\Endpoint;
-use App\Detail;
-use GuzzleHttp\Client;
+//use Carbon\Carbon;
+use App\Header;
+use App\Detail; 
+use App\User;
+use App\Mail\DailySummary;
+use App\Mail\OrderShipped;
 use GuzzleHttp\Exception\GuzzleException;
-use Illuminate\Support\Facades\Input;
+use GuzzleHttp\Client;
+use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\DB;
+
+Horizon::auth(function ($request) {
+    return true;
+});
+
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+ 
+
+Route::get('/headers', function () {   
+
+    $headers = Header::all();  
+    return view('headers',compact('headers'));
+     
+});
+
+Route::get('report/{group?}', 'DetailController@getFeeds')->named('feedname');
+
+Route::get('tabreport', 'DetailController@tabReports');
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/superfeedrlist', 'SuperfeedrController@GetSuperfeedrList');
+
+Route::get('/superfeedradd', 'SuperfeedrController@AddSuperfeedrRSS');
+
+Route::get('/superfeedraddxml', 'SuperfeedrController@GetSuperfeedrXML');
+
+Route::resource('endpoints', 'EndPointController');
+
+Route::resource('superfeedr', 'SuperfeedrController');
 
  
 
 
-class SuperfeedrController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
-    public function reload()
-    {
 
-        $client = new \GuzzleHttp\Client();    
-        $res    = $client->request('GET', env('SUPERFEEDR_GET_URL'), [        
-            'auth' => [ env('SUPERFEEDR_ID'),  env('SUPERFEEDR_PASSWORD')]
-        ]);
-                
-        $array = json_decode($res->getBody()->getContents(),true);  
+ 
 
-        Superfeedr::truncate();
+Route::get('/guzzle', function () {
+
+    
+
+    $client = new GuzzleHttp\Client();
+
+    //$res    = $client->request('GET', 'https://push.superfeedr.com?hub.mode=list', [        
+    //        'auth' => ['curtins', '32a1c1934dfa7073a0a02f85a2c3924c']
+    //]);
+
+    $res    = $client->request('GET', env('SUPERFEEDR_GET_URL'), [        
+        'auth' => [ env('SUPERFEEDR_ID'),  env('SUPERFEEDR_PASSWORD')]
+    ]);
+    
+
+   $res->getStatusCode();
+
+   $res->getHeader('content-type');
+    // 'application/json; charset=utf8'
+   //dd($res->getBody()->getContents());
+   $array = json_decode($res->getBody()->getContents(),true);
+    // {"type":"User"...'
+
+    //dd($res->getBody()->getContents());
+
+    dd($array);
         
-        $length = count($array);
-
-            for ($i = 0; $i < $length; $i++) {
-
-                $strformat = $array[$i]["subscription"]["format"] ?: 'atom';
-                $strendpoint          = $array[$i]["subscription"]["endpoint"];
-                $strtitle             = $array[$i]["subscription"]["feed"]["title"];
-                $strurl               = $array[$i]["subscription"]["feed"]["url"];
-
-                $superfeedr = Superfeedr::create (array(
-                    
-                                
-                                "format"        =>  $strformat  ,                                     
-                                "endpoint"      =>  $strendpoint,                        
-                                "title"         =>  $strtitle ,
-                                "url"           =>  $strurl       
-                                
-                                
-                ));
-
-            }    
-
-            Grouptype::truncate();
-
-            $tarray = DB::select("select distinct feed, substr(endpoint,locate('?',endpoint)+6,length(endpoint)-locate('?',endpoint)+1) as 'type' from superfeedrs a, details b where a.title = b.feed;");
-            
-            foreach($tarray as $r){                
-
-                $grouptype = Grouptype::create (array(
-                    
-                                
-                    "title"         =>  $r->feed  ,                                     
-                    "type"          =>  $r->type                       
-                       
-                    
-                    
-                ));
-            }
-                        
-            $superfeedrall = Superfeedr::all();
-                        
-            return view('superfeedr.list')->with( 'rssall', $superfeedrall );  
-
-
-    } 
-    public function index()
-    {
-
-
-        dd('here superfeeder');
-
-        $client = new \GuzzleHttp\Client();    
-        $res    = $client->request('GET', env('SUPERFEEDR_GET_URL'), [        
-            'auth' => [ env('SUPERFEEDR_ID'),  env('SUPERFEEDR_PASSWORD')]
-        ]);
-                
-        $array = json_decode($res->getBody()->getContents(),true);  
-
-        Superfeedr::truncate();
-        
-        $length = count($array);
-
-            for ($i = 0; $i < $length; $i++) {
-
-                $strformat = $array[$i]["subscription"]["format"] ?: 'atom';
-                $strendpoint          = $array[$i]["subscription"]["endpoint"];
-                $strtitle             = $array[$i]["subscription"]["feed"]["title"];
-                $strurl               = $array[$i]["subscription"]["feed"]["url"];
-
-                $superfeedr = Superfeedr::create (array(
-                    
-                                
-                                "format"        =>  $strformat  ,                                     
-                                "endpoint"      =>  $strendpoint,                        
-                                "title"         =>  $strtitle ,
-                                "url"           =>  $strurl      
-                                
-                                
-                ));
-
-            }    
-
-            return $this->reload();
-
-            $superfeedrall = Superfeedr::all();
-            
-            return view('superfeedr.list')->with( 'rssall', $superfeedrall );
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $type = Endpoint::where ('active','A')->orderBy('created_at', 'desc')->pluck('category','category');       
-
-        return View('superfeedr.create')
-            ->with('type', $type);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */ 
-    public function store(Request $request)
-    {
-
-        $client = new \GuzzleHttp\Client();
-
-        $group = env('SUPERFEEDR_POST_URL1') .  Input::get('url') . env('SUPERFEEDR_POST_URL2') . Input::get('type');
-
-        $res    = $client->request('post', $group, [        
-            'auth' => [ env('SUPERFEEDR_ID'),  env('SUPERFEEDR_PASSWORD')]
-        ]);
-
-
-        return $this->reload();
-        
-       
-
-        /*
-
-        
-
-        $res    = $client->request('post', env('SUPERFEEDR_POST_URL'), [        
-            'auth' => [ env('SUPERFEEDR_  ID'),  env('SUPERFEEDR_PASSWORD')]
-        ]);
-
-        $res    = $client->request('GET', env('SUPERFEEDR_GET_URL'), [        
-            'auth' => [ env('SUPERFEEDR_ID'),  env('SUPERFEEDR_PASSWORD')]
-        ]);
-              
-       
-       $array = json_decode($res->getBody()->getContents(),true) ;  
-
-       */
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $superfeedr = Superfeedr::find($id);         
-
-        $client = new \GuzzleHttp\Client();
-
-        //$group = env('SUPERFEEDR_POST_REMOVE1') .  $superfeedr->url . env('SUPERFEEDR_POST_REMOVE2') . $superfeedr->url; 
-        $group = env('SUPERFEEDR_POST_REMOVE1') .  $superfeedr->url; 
-
-        //dd($group);
-
-        $res    = $client->request('post', $group, [        
-            'auth' => [ env('SUPERFEEDR_ID'),  env('SUPERFEEDR_PASSWORD')]
-        ]);
-
-        //dd($res);
-
-
-        return $this->reload();
-        //dd(env('SUPERFEEDR_POST_REMOVE1').  $superfeedr->url . env('SUPERFEEDR_POST_REMOVE2') );
-
          
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-}
+
+        //curl https://push.superfeedr.com/
+        //-G
+        //-u demo:demo
+        //-d'hub.mode=list'
+        //-d'page=2'
+
+
+        //curl https://push.superfeedr.com/ -G -u curtins:32a1c1934dfa7073a0a02f85a2c3924c -d'hub.mode=list' -d'page=2'
+
+
+
+
+
+
+    
+    
+    // Create a client and provide a base URL
+    //$client = new Client('https://api.github.com');
+
+
+    //$request = $client->get('/user');
+    //$request->setAuth('stephencurtin@hotmail.com', 'April1955#');
+    //echo $request->getUrl();
+     
+    
+    //$request = $client->get('https://push.superfeedr.com/', [
+    //    'headers' => [
+    //        'Authorization' => '32a1c1934dfa7073a0a02f85a2c3924c',
+    //        'Accept'        => 'application/json',
+
+    //    ]
+    
+
+
+
+
+    //$client = new Client('http://baseurl.com/api/v1');
+
+    //$client = new Client();
+
+    //$request->setAuth('curtins', '32a1c1934dfa7073a0a02f85a2c3924c');
+
+    //$response = $request->send();
+
+    //echo $response->getBody();
+    // >>> {"type":"User", ...
+    
+    //echo $response->getHeader('Content-Length');
+    // >>> 792
+    
+    //$data = $response->json();
+    //echo $data['type'];
+
+    //dd($data);
+
+
+
+
+
+
+    
+
+
+
+
+    /*
+    
+    $client = new \GuzzleHttp\Client();
+
+    $request = $client->get('https://push.superfeedr.com/', [
+        'headers' => [
+            'Authorization' => '32a1c1934dfa7073a0a02f85a2c3924c',
+            'Accept'        => 'application/json',
+
+        ],
+
+    $response = $request->send();
+    $returned = ($response->getBody());
+
+    dd($returned);
+   
+         
+    ]);
+
+   
+    
+    // You need to parse the response body
+    // This will parse it into an array
+    
+     
+
+  
+    /*
+    curl https://push.superfeedr.com/
+    -G
+    -u demo:demo
+    -d'hub.mode=list'
+    -d'page=2'
+    
+
+    $request = $client->get('https://push.superfeedr.com/');
+    $request->setAuth('curtins', '32a1c1934dfa7073a0a02f85a2c3924c');
+    $response->getBody();
+    $data = $response->json();
+     */    
+    
+    
+}); 
+
+Route::get('/send', 'DetailController@sendEmail');
+
+//Route::get('/send', function () {
+
+    
+
+  //$detail = \App\Detail::get();  
+
+  //$groupname = DB::select("select feed ,feedoriginal  from details  group by feed, feedoriginal order by feed; ");
+
+
+  
+
+
+
+  //select feed, count(*) as 'cnt' from details group by feed order by 1;
+
+  //dd($detail);
+     
+  
+
+   // return $this->from('example@example.com')
+   // ->view('emails.orders.shipped');
+
+   // return $this->markdown('emails.daily_superfeedr');
+    
+   //$detail = DB::select("select feed, count(*) as 'cnt' from details group by feed order by 1;");
+   //\Mail::to('tvlover2447@yahoo.com')->send(new OrderShipped($detail));
+   // dd('Mail Send Successfully');
+   
+
+
+//}); 
