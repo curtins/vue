@@ -83,12 +83,14 @@ class SuperfeedrController extends Controller
     public function index()
     {
 
-        dd('step1');
+        
 
         $client = new \GuzzleHttp\Client();    
         $res    = $client->request('GET', env('SUPERFEEDR_GET_URL'), [        
             'auth' => [ env('SUPERFEEDR_ID'),  env('SUPERFEEDR_PASSWORD')]
         ]);
+
+        dd('step1');
                 
         $array = json_decode($res->getBody()->getContents(),true);  
 
