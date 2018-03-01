@@ -96,7 +96,7 @@ class SuperfeedrController extends Controller
 
         Superfeedr::truncate();
 
-        dd('step1a');
+       
         
         $length = count($array);
 
@@ -119,6 +119,8 @@ class SuperfeedrController extends Controller
                 ));
 
             }    
+
+            dd('step1b');
 
             return $this->reload();
 
