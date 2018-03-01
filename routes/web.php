@@ -93,7 +93,7 @@ Route::get('/guzzle', function () {
 
     //dd($res->getBody()->getContents());
 
-    dd($array);
+    //dd($array);
         
          
 

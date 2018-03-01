@@ -49,6 +49,8 @@ class DetailController extends Controller
 
 
         $typename  = DB::select("select type from details  group by type order by type; ");
+
+        dd($detail);
     
         return view('reports')
         ->with('detail', $detail)
