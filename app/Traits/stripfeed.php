@@ -71,7 +71,8 @@ trait ProcessFile
                                     //$strpublish = $json['items'][$x]['published'];
                                     //$strupdated = $json['items'][$x]['updated'];
                                     $strtitle = $json['items'][$x]['title'];
-                                    $strsummary = $json['items'][$x]['summary'];
+                                    //$strsummary = $json['items'][$x]['summary'];
+                                    $strsummary = $strsummary;
                                     $strFeedDetail     = $json['title'];
                                     
 
