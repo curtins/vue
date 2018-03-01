@@ -22,9 +22,9 @@ use GuzzleHttp\Client;
 use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\DB;
 
-Horizon::auth(function ($request) {
-    return true;
-});
+//Horizon::auth(function ($request) {
+//    return true;
+//});
 
 
 
