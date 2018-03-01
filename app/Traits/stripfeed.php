@@ -151,7 +151,7 @@ trait ProcessFile
                                                     "summary"    => $strsummary   , 
                                                     "content"    => $strcontent     ,
                                                     "feed"       => $strFeedDetail       ,      
-                                                    "feedoriginal"       => " ";                    
+                                                    "feedoriginal"       => " "                     
                                                     
                                         
                                                      ));
