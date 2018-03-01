@@ -73,6 +73,8 @@ trait ProcessFile
                                     $strtitle = $json['items'][$x]['title'];
                                     $strsummary = $json['items'][$x]['summary'];
                                     $strFeedDetail     = $json['title'];
+                                    $strFeedOriginal     = $json['feedoriginal'];
+
 
 
                                     /*
@@ -148,7 +150,8 @@ trait ProcessFile
                                                     "title"    => $strtitle ,
                                                     "summary"    => $strsummary   , 
                                                     "content"    => $strcontent     ,
-                                                    "feed"       => $strFeedDetail                     
+                                                    "feed"       => $strFeedDetail       ,      
+                                                    "feedoriginal"       => $strFeedOriginal                    
                                                     
                                         
                                                      ));
