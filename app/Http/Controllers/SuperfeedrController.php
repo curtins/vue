@@ -90,11 +90,13 @@ class SuperfeedrController extends Controller
             'auth' => [ env('SUPERFEEDR_ID'),  env('SUPERFEEDR_PASSWORD')]
         ]);
 
-        dd('step1');
+       
                 
         $array = json_decode($res->getBody()->getContents(),true);  
 
         Superfeedr::truncate();
+
+        dd('step1a');
         
         $length = count($array);
 
