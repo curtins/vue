@@ -34,6 +34,7 @@ use MySportsFeeds\MySportsFeeds;
 
 Route::get('/', function () {
     $msf = new MySportsFeeds();
+    $msf->authenticate("curtins", "April1955#");
     //return view('welcome');
 });
 
