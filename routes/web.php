@@ -22,15 +22,18 @@ use GuzzleHttp\Client;
 use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
+use MySportsFeeds\MySportsFeeds;
 
-Horizon::auth(function ($request) {
-    return true;
-});
+
+
+//Horizon::auth(function ($request) {
+//    return true;
+//});
 
 
 
 Route::get('/', function () {
-    $redis = Redis::connection();
+    $msf = new MySportsFeeds("1.2");
     //return view('welcome');
 });
 
