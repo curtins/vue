@@ -31,7 +31,7 @@ Horizon::auth(function ($request) {
 
 Route::get('/', function () {
     $redis = Redis::connection();
-    return view('welcome');
+    //return view('welcome');
 });
 
  
