@@ -21,6 +21,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Illuminate\Mail\Mailer;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 Horizon::auth(function ($request) {
     return true;
@@ -29,6 +30,7 @@ Horizon::auth(function ($request) {
 
 
 Route::get('/', function () {
+    $redis = Redis::connection();
     return view('welcome');
 });
 
