@@ -33,7 +33,7 @@ use MySportsFeeds\MySportsFeeds;
 
 
 Route::get('/', function () {
-    $msf = new MySportsFeeds("1.2");
+    $msf = new MySportsFeeds();
     //return view('welcome');
 });
 
