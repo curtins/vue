@@ -35,6 +35,8 @@ use MySportsFeeds\MySportsFeeds;
 Route::get('/', function () {
     $msf = new MySportsFeeds();
     $msf->authenticate("curtins", "April1955#");
+    $data = $msf->getData('nba', '2016-2017-regular', 'player_gamelogs', 'json', 'player=stephen-curry');
+    dd($data);
     //return view('welcome');
 });
 
