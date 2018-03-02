@@ -30,10 +30,6 @@
 		{{ Form::text('active', Input::old('active'), array('class' => 'form-control')) }}
 	</div>
 
-	
-
-	 
-
 	{{ Form::submit('Create the Endpoint!', array('class' => 'btn btn-primary')) }}
 
 {{ Form::close() }}
