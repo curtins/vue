@@ -41,7 +41,11 @@ Route::get('/baseball', function () {
     //echo($result);
 
 
-    echo( $json['latestupdates']['lastUpdatedOn']);
+    //echo( $json['latestupdates']['lastUpdatedOn']);
+    //"code"      => $json['status']['code'],       
+
+    $strtitle = $json['latestupdates'][$x]['lastUpdatedOn'];
+    echo($strtitle);
 
     
      
