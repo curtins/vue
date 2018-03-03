@@ -41,9 +41,9 @@ Route::get('/baseball', function () {
     //echo($result);
 
 
-    "nextfetch" => $json['latestupdates']['lastUpdatedOn'];
+    echo( $json['latestupdates']['lastUpdatedOn']);
 
-    echo(nextfetch);
+    
      
 });
 
