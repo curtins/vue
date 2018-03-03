@@ -55,6 +55,14 @@ Route::get('/baseball', function () {
 
      echo($strtitle);    
 
+     for ($x = 0; $x < count($json['feed']); $x++)
+                                {
+                                    
+                                    $strtitle = $json['feed'][$x]['name'];
+                                    //$strsummary = $json['items'][$x]['summary'];
+                                    
+                                }
+
     
      
 });
