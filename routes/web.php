@@ -36,9 +36,14 @@ Route::get('/baseball', function () {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
     curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
     curl_setopt($ch, CURLOPT_USERPWD, "$login:$password");
-    $result = curl_exec($ch);
+    $json = curl_exec($ch);
     curl_close($ch);  
-    echo($result);
+    //echo($result);
+
+
+    "nextfetch" => $json['latestupdates']['lastUpdatedOn'];
+
+    echo(nextfetch);
      
 });
 
