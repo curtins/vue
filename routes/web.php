@@ -27,38 +27,18 @@ use MySportsFeeds\MySportsFeeds;
 
 Route::get('/baseball', function () {   
 
-     // Get cURL resource
-     $ch = curl_init();
-    
-     // Set url
-     curl_setopt($ch, CURLOPT_URL, 'https://api.mysportsfeeds.com/v1.2/pull/mlb/2018-regular/latest_updates.json');
-     
-     // Set method
-     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-     
-     // Set options
-     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-     
-     // Set compression
-     curl_setopt($ch, CURLOPT_ENCODING, "gzip");
-     
-     // Set headers
-     curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Authorization: Basic " . base64_encode(env('MYSPORTSFEED_ID') . ":" . env('MYSPORTSPASSWORD_ID'))
-     ]);
-     
-     // Send the request & save response to $resp
-     $resp = curl_exec($ch);
-     
-     if (!$resp) {
-         die('Error: "' . curl_error($ch) . '" - Code: ' . curl_errno($ch));
-     } else {
-         echo "Response HTTP Status Code : " . curl_getinfo($ch, CURLINFO_HTTP_CODE);
-         echo "\nResponse HTTP Body : " . $resp;
-     }
-     
-     // Close request to clear up some resources
-     curl_close($ch);
+    $login = 'curtins';
+    $password = 'April1955#';
+    $url = 'https://api.mysportsfeeds.com/v1.2/pull/mlb/2018-regular/latest_updates.json';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($ch, CURLOPT_USERPWD, "$login:$password");
+    $result = curl_exec($ch);
+    curl_close($ch);  
+    echo($result);
      
 });
 
