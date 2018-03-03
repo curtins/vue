@@ -48,16 +48,11 @@ Route::get('/baseball', function () {
     //"code"      => $json['status']['code'],       
 
     //$strtitle = $json['latestupdates']['lastUpdatedOn'];
-    //echo($strtitle);
-
-    for ($x = 0; $x < count($json['feed']); $x++)
-                                {
-                                    $strpublish ="N/A";                                    
-                                    $strupdated ="N/A"; 
-                                    $strtitle ="N/A";  
-                                    $strsummary ="N/A";  
-                                    $strcontent ="N/A";  
-                                }
+   
+    
+     //echo($strtitle);
+     $strtitle = $json['latestupdates']['lastUpdatedOn'];
+    
 
     
      
