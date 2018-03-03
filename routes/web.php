@@ -44,7 +44,7 @@ Route::get('/baseball', function () {
      
      // Set headers
      curl_setopt($ch, CURLOPT_HTTPHEADER, [
-         "Authorization: Basic " . base64_encode(env('MYSPORTSFEED_ID') . ":" . env('MYSPORTSPASSWORD_ID'))
+         "Authorization: Basic " . env('MYSPORTSFEED_ID') . ":" . env('MYSPORTSPASSWORD_ID');
      ]);
      
      // Send the request & save response to $resp
