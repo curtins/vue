@@ -38,14 +38,14 @@ Route::get('/baseball', function () {
     curl_setopt($ch, CURLOPT_USERPWD, "$login:$password");
     $json = curl_exec($ch);
     curl_close($ch);  
-    //echo($result);
+    echo($json);
 
 
     //echo( $json['latestupdates']['lastUpdatedOn']);
     //"code"      => $json['status']['code'],       
 
-    $strtitle = $json['latestupdates']['lastUpdatedOn'];
-    echo($strtitle);
+    //$strtitle = $json['latestupdates']['lastUpdatedOn'];
+    //echo($strtitle);
 
     
      
