@@ -38,7 +38,7 @@ Route::get('/baseball', function () {
     curl_setopt($ch, CURLOPT_USERPWD, "$login:$password");
     $json = curl_exec($ch);
     curl_close($ch);  
-    echo($json);
+    echo($json); 
 
 
     //echo( $json['latestupdates']['lastUpdatedOn']);
