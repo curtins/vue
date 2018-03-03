@@ -30,7 +30,7 @@ use MySportsFeeds\MySportsFeeds;
 //    return true;
 //});
 
-
+/*
 
 Route::get('/', function () {
     $msf = new MySportsFeeds();
@@ -40,13 +40,17 @@ Route::get('/', function () {
     //return view('welcome');
 });
 
+*/
+
 Route::get('/baseball', function () { 
+
+    /*
 
     // Get cURL resource
     $ch = curl_init();
     
     // Set url
-    curl_setopt($ch, CURLOPT_URL, "https://api.mysportsfeeds.com/v1.2/pull/mlb/2018-regular/latest_updates.json");
+    curl_setopt($ch, CURLOPT_URL, 'https://api.mysportsfeeds.com/v1.2/pull/mlb/2018-regular/latest_updates.json');
     
     // Set method
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
@@ -74,6 +78,8 @@ Route::get('/baseball', function () {
     
     // Close request to clear up some resources
     curl_close($ch);
+
+    */
     
 }
 
