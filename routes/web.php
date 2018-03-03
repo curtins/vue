@@ -44,7 +44,7 @@ Route::get('/baseball', function () {
     $json = json_decode($data,true);
 
 
-    //echo( $json['latestupdates']['lastUpdatedOn']);
+    echo( $json['latestupdates']['lastUpdatedOn']['feedentry']['feed'][0]['Name']);
     //"code"      => $json['status']['code'],       
 
     //$strtitle = $json['latestupdates']['lastUpdatedOn'];
@@ -55,7 +55,7 @@ Route::get('/baseball', function () {
 
     // echo  
 
-     echo $json[0]["feed"]; // Access Array data
+    // echo $json[0]["feed"]; // Access Array data
 
     
      
