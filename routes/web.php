@@ -43,7 +43,7 @@ Route::get('/baseball', function () {
 
     $json = json_decode($data,true); 
 
-    foreach $json as $key => $value) {
+    foreach ($json as $key => $value) {
         echo $key;
        }
 
