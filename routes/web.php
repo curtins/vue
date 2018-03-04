@@ -43,6 +43,8 @@ Route::get('/baseball', function () {
 
     $json = json_decode($data,true);
 
+    dd($json);
+
 
     echo( $json['latestupdates']['lastUpdatedOn']['feedentry']['feed'][0]['Name']);
     //"code"      => $json['status']['code'],       
