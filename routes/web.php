@@ -35,7 +35,7 @@ Route::get('/baseball', function () {
     curl_setopt($ch, CURLOPT_URL,$url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
     curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($ch, CURLOPT_USERPWD, "$login:$password");
+    curl_setopt($ch, CURLOPT_USERPWD, "$login:$password"); 
     $data = curl_exec($ch);
     curl_close($ch);  
     //echo($json); 
