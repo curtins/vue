@@ -43,9 +43,9 @@ Route::get('/baseball', function () {
 
     $json = json_decode($data,true); 
 
-    foreach($json as $v){
-        echo($v);    // Value1, Value2, Value10
-     }
+    foreach ($arr as $key => $value) {
+        echo $key;
+       }
 
     //echo( $json['latestupdates']['lastUpdatedOn']['feedentry']);
     //"code"      => $json['status']['code'],       
