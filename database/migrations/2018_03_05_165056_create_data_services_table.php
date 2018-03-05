@@ -15,6 +15,11 @@ class CreateDataServicesTable extends Migration
     {
         Schema::create('data_services', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name',999);
+            $table->string('userid',999);
+            $table->string('password',999);
+            $table->string('urlauthorization',999);
+            $table->string('active',999);
             $table->timestamps();
         });
     }

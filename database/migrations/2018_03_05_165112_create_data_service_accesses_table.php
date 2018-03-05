@@ -15,6 +15,10 @@ class CreateDataServiceAccessesTable extends Migration
     {
         Schema::create('data_service_accesses', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('serviceid');
+            $table->string('servicetype',999);
+            $table->string('serviceurl',999);
+            $table->string('active',999);
             $table->timestamps();
         });
     }
