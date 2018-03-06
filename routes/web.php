@@ -42,10 +42,16 @@ Route::get('/baseball', function () {
     //echo($json); 
 
 
-    $json = json_decode($data,true); 
+    $array = json_decode($data,true); 
 
 
-    echo "Peter is " . $json['latestupdates'] . " years old.";
+    foreach($array as $k=>$val):
+        echo '<b>Name: '.$k.'</b></br>';
+        $keys = array_keys($val);
+        foreach($keys as $key):
+            echo '&nbsp;'.ucfirst($key).' = '.$val[$key].'</br>';
+        endforeach;
+    endforeach;
 
 
     //echo ($json->latestupdates);
