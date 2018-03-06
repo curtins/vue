@@ -42,7 +42,7 @@ Route::get('/baseball', function () {
     //echo($json); 
 
 
-    $json = json_decode($data,true); 
+    $json = json_decode($data); 
 
 
 
