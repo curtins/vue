@@ -42,17 +42,17 @@ Route::get('/baseball', function () {
     //echo($json); 
 
 
-    $json = json_decode($data); 
+    $json = json_decode($data,true); 
 
 
     //echo ($json->latestupdates);
-    foreach ($json as $key => $value) {
-        echo "{$key} => {$value} ";
-        print_r($arr);
-       }
+    //foreach ($json as $key => $value) {
+    //    echo "{$key} => {$value} ";
+    //    print_r($arr);
+    //   }
 
     //echo   count($json['feedentry']);
-//    var_dump($json);
+    var_dump($json);
     //$strfeed = $json['latestupdates']['feedentry']['feed'][0]['Name'];
 
     //"code"      => $json['status']['code'],       
