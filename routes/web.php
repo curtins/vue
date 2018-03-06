@@ -30,6 +30,7 @@ Route::get('/baseball', function () {
     $login = 'curtins';
     $password = 'April1955#';
     $url = 'https://api.mysportsfeeds.com/v1.2/pull/mlb/2018-regular/latest_updates.json';
+     
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL,$url);
@@ -43,14 +44,16 @@ Route::get('/baseball', function () {
 
     $json = json_decode($data,true); 
 
+
+
     //foreach ($json as $key => $value) {
     //    echo $key;
     //   }'
 
     //echo   count($json['feedentry']);
 
-    //echo( $json['latestupdates']['feedentry']);   
-    $strfeed = $json['latestupdates']['feedentry']['feed'][0]['Name'];
+    echo( $json['latestupdates']);   
+    //$strfeed = $json['latestupdates']['feedentry']['feed'][0]['Name'];
 
     //"code"      => $json['status']['code'],       
 
