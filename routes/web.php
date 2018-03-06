@@ -48,9 +48,7 @@ Route::get('/baseball', function () {
     foreach($array as $k=>$val):
         echo '<b>Name: '.$k.'</b></br>';
         $keys = array_keys($val);
-        foreach($keys as $key):
-            echo '&nbsp;'.ucfirst($key).' = '.$val[$key].'</br>';
-        endforeach;
+        dd($keys);  
     endforeach;
 
 
