@@ -46,11 +46,10 @@ Route::get('/baseball', function () {
 
     print_r ($array);
 
-    $keys = array_keys($array);
-
-    for($i=0; $i < count($keys); ++$i) {
-        echo $keys[$i] . ' ' . $array[$keys[$i]] . "\n";
-    }
+    foreach ( $array as $inner_array )
+        {
+            echo $inner_array['game']; // or $inner_array['status'];
+        }
 
 
 
