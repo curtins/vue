@@ -44,6 +44,10 @@ Route::get('/baseball', function () {
 
     $array = json_decode($data,true); 
 
+    print_r ($array);
+
+    dd('here');
+
     $strtitle = $array['scoreboard']['lastUpdatedOn'];
 
     $strtitle = $array['scoreboard']['gameScore'][0]['game']; 
