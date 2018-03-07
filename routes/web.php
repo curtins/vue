@@ -16,7 +16,7 @@ use App\Header;
 use App\Detail; 
 use App\User;
 use App\Mail\DailySummary;
-use App\Mail\OrderShipped;
+use App\Mail\OrderShipped; 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Illuminate\Mail\Mailer;
