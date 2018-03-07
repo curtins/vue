@@ -46,9 +46,11 @@ Route::get('/baseball', function () {
 
     $strtitle = $array['scoreboard']['lastUpdatedOn'];
 
-    $strcount = $array['scoreboard']['gameScore'];
+    $strtitle = $array['scoreboard']['gameScore']['game'][1]['id']; 
 
-    echo $strcount ;
+    
+
+    echo $strtitle ;
 
      
 
