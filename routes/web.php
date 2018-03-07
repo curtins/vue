@@ -46,13 +46,11 @@ Route::get('/baseball', function () {
 
     $strtitle = $array['scoreboard']['lastUpdatedOn'];
 
-    echo $strtitle;
+    $strcount = $array['scoreboard']['gameScore'];
 
-    for ($x = 0; $x < count($array['game']); $x++) 
-    {
-        $x1=6;
-    }
+    echo $strcount ;
 
+     
 
     foreach($array as $k=>$val):
         echo '<b>Name: '.$k.'</b></br>';
