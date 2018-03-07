@@ -48,6 +48,11 @@ Route::get('/baseball', function () {
 
     echo $strtitle;
 
+    for ($x = 0; $x < count($array['game']); $x++)
+    {
+        $x1=6;
+    }
+
 
     foreach($array as $k=>$val):
         echo '<b>Name: '.$k.'</b></br>';
@@ -56,8 +61,9 @@ Route::get('/baseball', function () {
     endforeach;
 
 
-    //echo ($json->latestupdates);
-    //foreach ($json as $key => $value) {
+
+    
+    //echo ($json->latestupdates);    //foreach ($json as $key => $value) {
     //    echo "{$key} => {$value} ";
     //    print_r($arr);
     //   }
