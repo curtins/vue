@@ -29,7 +29,7 @@ Route::get('/baseball', function () {
 
     $login = 'curtins';
     $password = 'April1955#';
-    $url = 'https://api.mysportsfeeds.com/v1.2/pull/mlb/2018-regular/latest_updates.json';
+    $url = 'https://api.mysportsfeeds.com/v1.2/pull/mlb/2018-regular/scoreboard.json?fordate=20180616';
      
 
     $ch = curl_init();
