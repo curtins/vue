@@ -48,7 +48,7 @@ Route::get('/baseball', function () {
 
     echo $strtitle;
 
-    for ($x = 0; $x < count($array['game']); $x++)
+    for ($x = 0; $x < count($array['game']); $x++) 
     {
         $x1=6;
     }
