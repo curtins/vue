@@ -44,23 +44,22 @@ Route::get('/baseball', function () {
 
     $array = json_decode($data,true); 
 
-    print_r ($array);
+    //print_r ($array);
 
-    foreach ( $array as $inner_array )
-        {
-            echo $inner_array['game']; // or $inner_array['status'];
-        }
+    $strfeed = $array['latestupdates']['lastUpdateOn'];
+
+    dd($strfeed);
+
+     
 
 
-
-    
-    //echo ($json->latestupdates);    //foreach ($json as $key => $value) {
+        //echo ($json->latestupdates);    //for//each ($json as $key => $value) {
     //    echo "{$key} => {$value} ";
     //    print_r($arr);
     //   }
 
     //echo   count($json['feedentry']);
-    var_dump($json);
+    //var_dump($json);
     //$strfeed = $json['latestupdates']['feedentry']['feed'][0]['Name'];
 
     //"code"      => $json['status']['code'],       
